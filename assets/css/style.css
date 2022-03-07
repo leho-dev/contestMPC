@@ -8,6 +8,7 @@
     --black-color: #000;
     --bg-color: #f0f2f5;
     --grid: 1200px;
+    --header-height: 60px;
 }
 
 *,
@@ -28,10 +29,8 @@ body {
 
 body {
     min-height: 100vh;
+    width: 100%;
     background: var(--bg-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 input {

@@ -1,0 +1,12 @@
+.app {
+    width: 100%;
+}
+
+.header {
+    width: 100%;
+    height: var(--header-height);
+}
+
+.header-grid {
+    background: #000;
+}
