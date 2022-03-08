@@ -90,7 +90,7 @@
                             </label>
                         </div>
                         
-                        <div class="input-group__submit btn">
+                        <div class="input-group__submit btn sign-in">
                             Sign In
                         </div>
                     </div>
@@ -108,6 +108,7 @@
             const box = document.querySelector(".box__move")
             const redirectSignUp = document.querySelector(".form-redirect.sign-up")
             const redirectSignIn = document.querySelector(".form-redirect.sign-in")
+            const signInBtn = document.querySelector(".input-group__submit.btn.sign-in")
 
             redirectSignUp.onclick = () => {
                 box.classList.add("active")
@@ -115,6 +116,10 @@
 
             redirectSignIn.onclick = () => {
                 box.classList.remove("active")
+            }
+
+            signInBtn.onclick = () => {
+                window.location.href="./home.html"
             }
 
         </script>
