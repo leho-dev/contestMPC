@@ -351,6 +351,7 @@
     justify-content: center;
     align-items: center;
     font-size: 2rem;
+    transition: all ease-in-out 0.3s;
 }
 
 .newfeed__react-icon.active {
@@ -448,9 +449,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    display: none;
+}
+
+.modal.active {
+    display: flex;
 }
 
 .modal-body {
+}
+
+@keyframes scaleZoom {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .post {
@@ -458,6 +478,11 @@
     padding: 8px 12px;
     width: 400px;
     border-radius: 12px;
+    transition: all ease-in-out 0.2s;
+    animation: scaleZoom 0.8s ease-in-out;
+}
+
+.post.active {
 }
 
 .post-head {
@@ -511,5 +536,5 @@
 .post-btn:hover {
     color: var(--text-color);
     cursor: pointer;
-    background:var(--bg-hover-color);
+    background: var(--bg-hover-color);
 }
