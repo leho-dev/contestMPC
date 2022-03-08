@@ -4,9 +4,128 @@
 
 .header {
     width: 100%;
-    height: var(--header-height);
+    box-shadow: 0 2px 8px #ccc;
 }
 
 .header-grid {
-    background: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--header-height);
 }
+
+.header-left {
+    height: var(--header-height);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-left__logo {
+    height: calc(var(--header-height) + 40px);
+    cursor: pointer;
+}
+
+.header-left__logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.header-right {
+}
+
+.header-right__profile {
+    border-radius: 50%;
+    position: relative;
+}
+
+.header-right__avt {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    font-size: 1.6rem;
+    color: var(--black-color);
+}
+
+.header-right__profile:hover {
+    cursor: pointer;
+}
+
+.profile__sub-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: var(--white-color);
+    min-width: 140px;
+    border-radius: 4px;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.05);
+    padding: 8px 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0);
+    transform-origin: calc(100% - 20px) top;
+    transition: all ease 0.4s;
+}
+
+.header-right__profile:hover .profile__sub-menu {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: unset;
+}
+
+.profile__sub-menu::before {
+    content: "";
+    position: absolute;
+    top: -16px;
+    right: 10px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent var(--white-color) transparent;
+}
+
+.profile__sub-menu::after {
+    content: "";
+    position: absolute;
+    top: -16px;
+    left: 0;
+    width: 100%;
+    height: 16px;
+    background: transparent;
+}
+
+.profile__item {
+    display: flex;
+    align-items: center;
+    padding: 4px 12px;
+    transition: all ease 0.25s;
+}
+
+.profile__item:hover {
+    background: #ccc;
+}
+
+.profile__item-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.profile__item-text {
+    font-size: 1.4rem;
+    color: var(--text-color);
+    margin-left: 4px;
+}
+
+/* ----------------------------------------------------------- */
+
+
+
