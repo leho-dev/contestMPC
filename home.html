@@ -25,13 +25,7 @@
             <header class="header">
                 <div class="header-grid grid">
                     <div class="header-left">
-                        <div class="header-left__logo">
-                            <img
-                                src="./assets/img/logo.png"
-                                alt=""
-                                class="header-left__logo-img"
-                            />
-                        </div>
+                        <div class="header-left__logo">MPC</div>
                     </div>
                     <div class="header-right">
                         <div class="header-right__profile">
@@ -163,7 +157,41 @@
                             </div>
                             <div class="main-right__item-name">User 3</div>
                         </div>
+                        <div class="main-right__item">
+                            <div class="main-right__item-avt">
+                                <i class="fa-solid fa-user"></i>
+                                <div class="main-right__item-avt--online"></div>
+                            </div>
+                            <div class="main-right__item-name">User 4</div>
+                        </div>
                     </div>
+
+                    <div class="main-right__heading group">Online Group</div>
+                    <div class="separate"></div>
+                    <div class="main-right__list">
+                        <div class="main-right__item">
+                            <div class="main-right__item-avt">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <div class="main-right__item-avt--online"></div>
+                            </div>
+                            <div class="main-right__item-name">Group 1</div>
+                        </div>
+                        <div class="main-right__item">
+                            <div class="main-right__item-avt">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <div class="main-right__item-avt--online"></div>
+                            </div>
+                            <div class="main-right__item-name">Group 2</div>
+                        </div>
+                        <div class="main-right__item">
+                            <div class="main-right__item-avt">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <div class="main-right__item-avt--online"></div>
+                            </div>
+                            <div class="main-right__item-name">Group 3</div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -204,6 +232,7 @@
             <footer class="footer">
                 <div class="footer-grid grid">
                     <div class="footer-content">Goodluck!</div>
+                    <div class="box"></div>
                 </div>
             </footer>
         </div>
@@ -253,6 +282,9 @@
 
                 return {
                     render() {
+                        const today = new Date();
+                        const date = `0${today.getDate()}`.slice(-2);
+                        const month = `0${today.getMonth() + 1}`.slice(-2);
                         const htmls = arr
                             .map((newfeed) => {
                                 if (!newfeed.isDeleted) {
@@ -265,7 +297,7 @@
                                             </div>
                                             <div class="newfeed__status">
                                                 <div class="newfeed__status-time">
-                                                    09/03
+                                                    ${date}/${month}
                                                 </div>
                                                 <div class="newfeed__status-icon">
                                                     <i
