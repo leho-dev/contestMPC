@@ -22,6 +22,7 @@
     </head>
     <body>
         <div class="app grid">
+            <div id="toast"></div>
             <div class="heading">
                 CONTEST MPC
             </div>
@@ -58,7 +59,7 @@
                             </label>
                         </div>
                         
-                        <div class="input-group__submit btn">
+                        <div class="input-group__submit btn sign-up">
                             Sign Up
                         </div>
 
@@ -104,11 +105,34 @@
             </div>
         </div>
 
+        <script src="./assets/js/app.js"></script>
         <script>
             const box = document.querySelector(".box__move")
             const redirectSignUp = document.querySelector(".form-redirect.sign-up")
             const redirectSignIn = document.querySelector(".form-redirect.sign-in")
             const signInBtn = document.querySelector(".input-group__submit.btn.sign-in")
+            const signUpBtn = document.querySelector(".input-group__submit.btn.sign-up")
+            const usernameSignUp = document.querySelector(".input-group__inp#username")
+            const pwSignUp = document.querySelector(".input-group__inp#password")
+            const confirmPwSignUp = document.querySelector(".input-group__inp#confirmPW")
+            const usernameSignIn = document.querySelector(".input-group__inp#username2")
+            const pwSignIn = document.querySelector(".input-group__inp#password2")
+
+            const usersArr = [
+                {
+                    id: 1,
+                    username: "anvyidol",
+                    password: "123",
+                    isOnline: false,
+                },
+                {
+                    id: 2,
+                    username: "anvyidol2",
+                    password: "123",
+                    isOnline: false,
+                },
+            ]
+            const users = JSON.parse(localStorage.getItem("users")) || usersArr
 
             redirectSignUp.onclick = () => {
                 box.classList.add("active")
@@ -118,8 +142,107 @@
                 box.classList.remove("active")
             }
 
+
+            signUpBtn.onclick = () => {
+                const usernameValue = usernameSignUp.value
+                const pwValue = pwSignUp.value
+                const confirmPWValue = confirmPwSignUp.value
+
+                if (!usernameValue || !pwValue || !confirmPWValue) {
+                    if (!confirmPWValue) {
+                        confirmPwSignUp.focus()
+                    }
+                    if (!pwValue) {
+                        pwSignUp.focus()
+                    }
+                    if (!usernameValue) {
+                        usernameSignUp.focus()
+                    }
+                    toast({
+                        title: "Error!",
+                        message: "Please enter all fields!",
+                        type: "error",
+                        duration: 3000
+                    });
+                }
+
+                if (usernameValue && pwValue && confirmPWValue) {
+                    const user = users.find(user => user.username === usernameValue.trim())
+
+                    console.log(user)
+
+                    if (user) {
+                        toast({
+                            title: "Error!",
+                            message: "Username already exists!",
+                            type: "error",
+                            duration: 3000
+                        });
+                        usernameSignUp.focus()
+                    }
+
+                    if (!user) {
+                        const confirm = pwValue.trim() === confirmPWValue.trim()
+                        if (!confirm) {
+                            toast({
+                                title: "Error!",
+                                message: "Confirm password not match!",
+                                type: "error",
+                                duration: 3000
+                            });
+                            confirmPwSignUp.focus()
+                        }
+
+                        if (confirm) {
+                            const obj = {
+                                id: users.length + 1,
+                                username: usernameValue,
+                                password: pwValue,
+                                isOnline: false,
+                            }
+                            users.push(obj)
+                            localStorage.setItem("users", JSON.stringify(users))
+                            usernameSignUp.value = pwSignUp.value = confirmPwSignUp.value = null
+                            redirectSignUp.click()
+                            
+                        }
+                    }
+                }
+
+            }
+
             signInBtn.onclick = () => {
-                window.location.href="./home.html"
+                const usernameValue = usernameSignIn.value.trim()
+                const pwValue = pwSignIn.value.trim()
+
+                const user = users.find(user => user.username === usernameValue)
+                if (!user) {
+                    toast({
+                        title: "Error!",
+                        message: "Username not exists!",
+                        type: "error",
+                        duration: 3000
+                    });
+                    usernameSignIn.focus();
+                }
+                if (user) {
+                    const pw = user.password === pwValue
+                    if (!pw) {
+                            toast({
+                            title: "Error!",
+                            message: "Password not match!",
+                            type: "error",
+                            duration: 3000
+                        });
+                        pwSignIn.focus()
+                    }
+                    if (pw) {
+                        users[user.id - 1].isOnline = true
+                        localStorage.setItem("users", JSON.stringify(users))
+                        window.location.href="./home.html"
+                    }
+                }
+
             }
 
         </script>
