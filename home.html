@@ -119,6 +119,22 @@
                             <div class="main-left__item-text">Favorite</div>
                         </li>
                     </ul>
+                    <div class="separate"></div>
+                    <div class="main-left__mode">
+                        <div class="main-left__mode-btn light">
+                            <div class="main-left__mode-btn__icon">
+                                <i class="fa-solid fa-sun"></i>
+                            </div>
+                            <div class="main-left__mode-btn__text">Light</div>
+                        </div>
+                        <div class="main-left__mode-btn dark">
+                            <div class="main-left__mode-btn__icon">
+                                <i class="fa-solid fa-moon"></i>
+                            </div>
+                            <div class="main-left__mode-btn__text">Dark</div>
+                        </div>
+                        <div class="main-left__mode-box"></div>
+                    </div>
                 </div>
                 <div class="main-mid">
                     <div class="main-mid__create-post">
@@ -286,9 +302,9 @@
                 ];
 
                 const users = JSON.parse(localStorage.getItem("users")) || [];
-                const userCurr = users.find((user) => user.isOnline === true);
                 const newfeeds =
                     JSON.parse(localStorage.getItem("newfeeds")) || arr;
+                const userCurr = users.find((user) => user.isOnline === true);
 
                 return {
                     render() {
@@ -370,7 +386,21 @@
                         const yesBtn = $(".confirm-btn.yes");
                         const noBtn = $(".confirm-btn.no");
                         const logoutBtn = $(".profile__item.logout");
+                        const lightBtn = $(".main-left__mode-btn.light");
+                        const darkBtn = $(".main-left__mode-btn.dark");
+                        const moveModeBtn = $(".main-left__mode-box");
                         _this = this;
+
+                        //mode
+                        darkBtn.onclick = () => {
+                            moveModeBtn.classList.add("active");
+                            $(".app").classList.add("dark")
+                        };
+
+                        lightBtn.onclick = () => {
+                            moveModeBtn.classList.remove("active");
+                            $(".app").classList.remove("dark")
+                        };
 
                         //modal
                         closeModal = () => {

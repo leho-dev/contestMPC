@@ -1,5 +1,15 @@
 .app {
     width: 100%;
+    background: var(--bg-color);
+}
+
+.app.dark {
+    --white-color: #000;
+    --black-color: #fff;
+    --bg-color: #303038;
+    --text-color: #f0f5f5;
+    --bg-item-hover: rgb(122, 122, 122);
+    --bg-mode: #232127;
 }
 
 .header {
@@ -47,6 +57,7 @@
 .header-right__profile {
     border-radius: 50%;
     position: relative;
+    color: var(--text-color);
 }
 
 .header-right__avt {
@@ -71,7 +82,7 @@
     top: calc(100% + 10px);
     right: 0;
     background: var(--white-color);
-    min-width: 140px;
+    min-width: 160px;
     border-radius: 4px;
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.05);
     padding: 8px 0;
@@ -116,7 +127,7 @@
 }
 
 .profile__item:hover {
-    background: #ccc;
+    background: var(--bg-item-hover);
 }
 
 .profile__item-icon {
@@ -163,6 +174,7 @@
     border-radius: 20px;
     padding: 4px 12px;
     margin-bottom: 12px;
+    background: var(--white-color);
 }
 
 .main-left__search-icon {
@@ -173,6 +185,7 @@
 .main-left__search-input {
     color: var(--text-color);
     width: 220px;
+    background: var(--white-color);
 }
 
 .separate {
@@ -187,9 +200,11 @@
 
 .main-left__list {
     margin-top: 12px;
+    margin-bottom: 12px;
 }
 
 .main-left__item {
+    color: var(--text-color);
     display: flex;
     align-items: center;
     border-radius: 4px;
@@ -202,7 +217,7 @@
 }
 
 .main-left__item.active {
-    background: #eaeaeb;
+    background: var(--bg-item-hover);
 }
 
 .main-left__item:hover {
@@ -227,7 +242,73 @@
     margin-left: 8px;
 }
 
+.main-left__mode {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    border-radius: 18px;
+    position: relative;
+    background: var(--bg-mode);
+}
+
+.main-left__mode-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 6px 12px;
+    border-radius: 16px;
+    transition: all ease 0.3s;
+    z-index: 2;
+}
+
+.main-left__mode-btn.light {
+}
+
+.main-left__mode-btn.dark {
+    color: var(--text-color);
+}
+
+.main-left__mode-btn:hover {
+}
+
+.main-left__mode-box {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    background: var(--white-color);
+    border-radius: 16px;
+    transition: all ease-in-out 0.25s;
+}
+
+.main-left__mode-box.active {
+    left: 50%;
+}
+
+.main-left__mode-btn:hover {
+    cursor: pointer;
+}
+
+.main-left__mode-btn__icon {
+    font-size: 1.6rem;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-left__mode-btn__text {
+    font-size: 1.6rem;
+    margin-left: 4px;
+}
+
 .main-mid {
+    color: var(--text-color);
     flex: 1;
     overflow-y: auto;
     padding-bottom: 44px;
@@ -246,6 +327,8 @@
 }
 
 .main-mid__create-post {
+    position: sticky;
+    top: var(--header-height);
     background: var(--white-color);
     margin: 12px 8px;
     border-radius: 8px;
@@ -320,7 +403,6 @@
 }
 
 .newfeed__status {
-    
 }
 
 .newfeed__status-name {
@@ -333,7 +415,6 @@
     align-items: center;
     gap: 4px;
 }
-
 
 .newfeed__status-icon {
     font-size: 1.2rem;
@@ -390,6 +471,7 @@
 }
 
 .main-right {
+    color: var(--text-color);
     width: 250px;
     padding-left: 12px;
     padding-top: 12px;
@@ -418,7 +500,11 @@
 }
 
 .main-right__item:hover {
-    background-image: linear-gradient(to right, transparent, #eaeaeb);
+    background-image: linear-gradient(
+        to right,
+        transparent,
+        var(--bg-item-hover)
+    );
     cursor: pointer;
 }
 
@@ -473,6 +559,7 @@
 
 .footer-content {
     font-size: 1.6rem;
+    color: var(--text-color);
 }
 
 .box {
@@ -518,6 +605,7 @@
 /* ----------------------------------------------------- */
 
 .modal {
+    color: var(--text-color);
     position: fixed;
     z-index: 20;
     inset: 0;
@@ -533,6 +621,7 @@
 }
 
 .modal-body {
+    border-radius: 12px;
 }
 
 @keyframes scaleZoom {
@@ -555,6 +644,7 @@
     padding: 8px 12px;
     width: 400px;
     border-radius: 12px;
+    border: 1px solid #ccc;
     display: none;
     transition: all ease-in-out 0.2s;
 }
@@ -595,6 +685,9 @@
     border: none;
     width: 100%;
     resize: none;
+    background: var(--white-color);
+    color: var(--text-color);
+    font-size: 1.4rem;
 }
 
 .post-btn {

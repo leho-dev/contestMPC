@@ -3,10 +3,12 @@
 :root {
     --primary-color: rgb(174, 162, 247);
     --bg-hover-color: rgb(157, 143, 248);
+    --bg-item-hover: rgb(230, 230, 230);
     --text-color: #050505;
     --white-color: #fff;
     --black-color: #000;
     --bg-color: #f0f2f5;
+    --bg-mode: #f6f6ff;
     --grid: 1200px;
     --header-height: 60px;
 }
