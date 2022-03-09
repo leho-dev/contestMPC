@@ -191,7 +191,6 @@
                             <div class="main-right__item-name">Group 3</div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -245,47 +244,58 @@
                 const arr = [
                     {
                         id: 1,
+                        author: "anvyidol",
                         content: "Hello Everyone ~",
                         isDeleted: false,
                     },
                     {
                         id: 2,
+                        author: "anvyidol2",
                         content:
                             "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum voluptatibus animi, rerum expedita odit consectetur quis rem id suntnisi! Soluta minus consectetur ex laudantium. Dolore reprehenderit quod minus nulla.",
                         isDeleted: false,
                     },
                     {
                         id: 3,
+                        author: "anvyidol",
                         content:
                             "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum voluptatibus animi, rerum expedita odit consectetur quis rem id suntnisi! Soluta minus consectetur ex laudantium. Dolore reprehenderit quod minus nulla.",
                         isDeleted: false,
                     },
                     {
                         id: 4,
+                        author: "anvyidol2",
                         content:
                             "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum voluptatibus animi, rerum expedita odit consectetur quis rem id suntnisi! Soluta minus consectetur ex laudantium. Dolore reprehenderit quod minus nulla.",
                         isDeleted: false,
                     },
                     {
                         id: 5,
+                        author: "anvyidol2",
                         content:
                             "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum voluptatibus animi, rerum expedita odit consectetur quis rem id suntnisi! Soluta minus consectetur ex laudantium. Dolore reprehenderit quod minus nulla.",
                         isDeleted: false,
                     },
                     {
                         id: 6,
+                        author: "anvyidol",
                         content:
                             "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nostrum voluptatibus animi, rerum expedita odit consectetur quis rem id suntnisi! Soluta minus consectetur ex laudantium. Dolore reprehenderit quod minus nulla.",
                         isDeleted: false,
                     },
                 ];
 
+                const users = JSON.parse(localStorage.getItem("users")) || [];
+                const userCurr = users.find((user) => user.isOnline === true);
+                const newfeeds =
+                    JSON.parse(localStorage.getItem("newfeeds")) || arr;
+
                 return {
                     render() {
                         const today = new Date();
                         const date = `0${today.getDate()}`.slice(-2);
                         const month = `0${today.getMonth() + 1}`.slice(-2);
-                        const htmls = arr
+                        const htmls = newfeeds
                             .map((newfeed) => {
                                 if (!newfeed.isDeleted) {
                                     return `
@@ -296,18 +306,30 @@
                                                 <i class="fa-solid fa-user"></i>
                                             </div>
                                             <div class="newfeed__status">
-                                                <div class="newfeed__status-time">
-                                                    ${date}/${month}
+                                                <div class="newfeed__status-name">
+                                                    ${newfeed.author}
                                                 </div>
-                                                <div class="newfeed__status-icon">
-                                                    <i
-                                                        class="fa-solid fa-earth-americas"
-                                                    ></i>
+                                                <div class="newfeed__status-more">
+                                                    <div class="newfeed__status-time">
+                                                        ${date}/${month}
+                                                    </div>
+                                                    <div class="newfeed__status-icon">
+                                                        <i
+                                                            class="fa-solid fa-earth-americas"
+                                                        ></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="newfeed__head-right">
-                                            <div data-index="${newfeed.id}" class="newfeed__delete">
+                                        <div style="display: ${
+                                            newfeed.author ===
+                                            userCurr?.username
+                                                ? "block"
+                                                : "none"
+                                        }" class="newfeed__head-right">
+                                            <div data-index="${
+                                                newfeed.id
+                                            }" class="newfeed__delete">
                                                 <i class="fa-solid fa-trash"></i>
                                             </div>
                                         </div>
@@ -316,7 +338,13 @@
                                         ${newfeed.content}
                                     </div>
                                     <div class="newfeed__react">
-                                        <div class="newfeed__react-icon">
+                                        <div data-index=${
+                                            newfeed.id
+                                        } class="newfeed__react-icon ${
+                                        userCurr?.liked.includes(newfeed.id)
+                                            ? "active"
+                                            : ""
+                                    }">
                                             <i class="fa-solid fa-heart"></i>
                                         </div>
                                     </div>
@@ -326,12 +354,15 @@
                             })
                             .join("");
                         $(".main-mid__newfeeds").innerHTML = htmls;
+                        $(
+                            ".create-post__input"
+                        ).innerHTML = `Hmm, what do you think ${userCurr?.username}?`;
                     },
                     handleEvent() {
                         const modal = $(".modal");
                         const postBox = $(".post");
                         const confirmBox = $(".confirm");
-                        const newfeeds = $(".main-mid__newfeeds");
+                        const list = $(".main-mid__newfeeds");
                         const createPostBtn = $(".create-post__input");
                         const inputPost = $(".post-input");
                         const closePostBtn = $(".post-close");
@@ -398,14 +429,19 @@
                                     id: arr.length + 1,
                                     content: inputPost.value,
                                     isDeleted: false,
+                                    author: userCurr?.username,
                                 };
-                                arr.unshift(obj);
+                                newfeeds.unshift(obj);
+                                localStorage.setItem(
+                                    "newfeeds",
+                                    JSON.stringify(newfeeds)
+                                );
                                 _this.render();
                                 closeModal();
                             }
                         };
 
-                        newfeeds.onclick = (e) => {
+                        list.onclick = (e) => {
                             const reactBtn = e.target.closest(
                                 ".newfeed__react-icon"
                             );
@@ -414,7 +450,25 @@
                                 e.target.closest(".newfeed__delete");
 
                             if (reactBtn) {
+                                const id = +reactBtn.dataset.index;
                                 reactBtn.classList.toggle("active");
+                                users.forEach((user) => {
+                                    if (user.id === userCurr?.id) {
+                                        const liked = user.liked.includes(id);
+                                        if (liked) {
+                                            user.liked = user.liked.filter(
+                                                (postID) => postID != id
+                                            );
+                                        }
+                                        if (!liked) {
+                                            user.liked.push(id);
+                                        }
+                                    }
+                                });
+                                localStorage.setItem(
+                                    "users",
+                                    JSON.stringify(users)
+                                );
                             }
 
                             if (deleteBtn) {
@@ -423,11 +477,15 @@
 
                                 yesBtn.onclick = () => {
                                     const id = deleteBtn.dataset.index;
-                                    arr.forEach((a) => {
-                                        if (a.id == id) {
-                                            a.isDeleted = true;
+                                    newfeeds.forEach((newfeed) => {
+                                        if (newfeed.id == id) {
+                                            newfeed.isDeleted = true;
                                         }
                                     });
+                                    localStorage.setItem(
+                                        "newfeeds",
+                                        JSON.stringify(newfeeds)
+                                    );
                                     closeModal();
                                     _this.render();
                                 };
@@ -439,6 +497,10 @@
                         };
 
                         logoutBtn.onclick = () => {
+                            users.forEach((user) => {
+                                user.isOnline = false;
+                            });
+
                             window.location.href = "./index.html";
                         };
                     },

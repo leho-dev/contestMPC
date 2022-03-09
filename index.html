@@ -124,12 +124,14 @@
                     username: "anvyidol",
                     password: "123",
                     isOnline: false,
+                    liked: [1],
                 },
                 {
                     id: 2,
                     username: "anvyidol2",
                     password: "123",
                     isOnline: false,
+                    liked: [2],
                 },
             ]
             const users = JSON.parse(localStorage.getItem("users")) || usersArr
@@ -169,8 +171,6 @@
                 if (usernameValue && pwValue && confirmPWValue) {
                     const user = users.find(user => user.username === usernameValue.trim())
 
-                    console.log(user)
-
                     if (user) {
                         toast({
                             title: "Error!",
@@ -199,6 +199,7 @@
                                 username: usernameValue,
                                 password: pwValue,
                                 isOnline: false,
+                                liked: [],
                             }
                             users.push(obj)
                             localStorage.setItem("users", JSON.stringify(users))
@@ -215,7 +216,23 @@
                 const usernameValue = usernameSignIn.value.trim()
                 const pwValue = pwSignIn.value.trim()
 
-                const user = users.find(user => user.username === usernameValue)
+                if (!usernameValue || !pwValue) {
+                    if (!pwValue) {
+                        pwSignIn.focus()
+                    }
+                    if (!usernameValue) {
+                        usernameSignIn.focus()
+                    }
+                    toast({
+                        title: "Error!",
+                        message: "Please enter all fields!",
+                        type: "error",
+                        duration: 3000
+                    });
+                }
+
+                if (usernameValue && pwValue) {
+                    const user = users.find(user => user.username === usernameValue)
                 if (!user) {
                     toast({
                         title: "Error!",
@@ -237,11 +254,17 @@
                         pwSignIn.focus()
                     }
                     if (pw) {
+                        users.forEach(user => {
+                            user.isOnline = false
+                        })
                         users[user.id - 1].isOnline = true
                         localStorage.setItem("users", JSON.stringify(users))
                         window.location.href="./home.html"
                     }
                 }
+                }
+
+                
 
             }
 
