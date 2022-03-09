@@ -27,7 +27,7 @@
                 CONTEST MPC
             </div>
             <div class="box">
-                <div class="box__left">
+                <div class="box__left active">
                     <div class="box__heading">
                         Sign Up
                     </div>
@@ -68,7 +68,7 @@
                         Already have an account? 
                     </div>
                 </div>
-                <div class="box__right">
+                <div class="box__right active">
                     <div class="box__heading">
                         Sign In
                     </div>
@@ -108,6 +108,8 @@
         <script src="./assets/js/app.js"></script>
         <script>
             const box = document.querySelector(".box__move")
+            const boxLeft = document.querySelector(".box__left")
+            const boxRight = document.querySelector(".box__right")
             const redirectSignUp = document.querySelector(".form-redirect.sign-up")
             const redirectSignIn = document.querySelector(".form-redirect.sign-in")
             const signInBtn = document.querySelector(".input-group__submit.btn.sign-in")
@@ -138,10 +140,14 @@
 
             redirectSignUp.onclick = () => {
                 box.classList.add("active")
+                boxLeft.classList.add("active")
+                boxRight.classList.add("active")
             }
 
             redirectSignIn.onclick = () => {
                 box.classList.remove("active")
+                boxLeft.classList.remove("active")
+                boxRight.classList.remove("active")
             }
 
 

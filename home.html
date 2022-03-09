@@ -136,6 +136,9 @@
                         <div class="main-left__mode-box"></div>
                     </div>
                 </div>
+                <div class="toggle-menu">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
                 <div class="main-mid">
                     <div class="main-mid__create-post">
                         <div class="create-post__avt">
@@ -389,17 +392,34 @@
                         const lightBtn = $(".main-left__mode-btn.light");
                         const darkBtn = $(".main-left__mode-btn.dark");
                         const moveModeBtn = $(".main-left__mode-box");
+                        const mainLeft = $(".main-left");
+                        const toggle = $(".toggle-menu");
                         _this = this;
 
                         //mode
                         darkBtn.onclick = () => {
                             moveModeBtn.classList.add("active");
-                            $(".app").classList.add("dark")
+                            $(".app").classList.add("dark");
                         };
 
                         lightBtn.onclick = () => {
                             moveModeBtn.classList.remove("active");
-                            $(".app").classList.remove("dark")
+                            $(".app").classList.remove("dark");
+                        };
+
+                        //toggle
+                        toggle.onclick = () => {
+                            mainLeft.classList.toggle("active");
+                        };
+
+                        window.onclick = (e) => {
+                            const mainLeftE = e.target.closest(".main-left");
+                            const toggleMenu = e.target.closest(".toggle-menu");
+                            if (!mainLeftE && !toggleMenu) {
+                                if (mainLeft.classList.contains("active")) {
+                                    mainLeft.classList.remove("active");
+                                }
+                            }
                         };
 
                         //modal
