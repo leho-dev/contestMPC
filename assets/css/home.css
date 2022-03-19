@@ -221,7 +221,7 @@
 }
 
 .main-left__item:hover {
-    background: #eaeaeb;
+    background: var(--bg-item-hover);
     cursor: pointer;
 }
 
