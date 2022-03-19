@@ -44,3 +44,22 @@ function toast({ title = "", message = "", type = "info", duration = 3000 }) {
         main.appendChild(toast);
     }
 }
+
+window.onkeydown = function (e) {
+    if ((e.ctrlKey && e.keyCode == 85) || e.keyCode == 123) {
+        return false;
+    }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 73) {
+        return false;
+    }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == "J".charCodeAt(0)) {
+        return false;
+    }
+    if (e.ctrlKey && e.shiftKey && e.keyCode == "C".charCodeAt(0)) {
+        return false;
+    }
+};
+
+window.oncontextmenu = (e) => {
+    e.preventDefault();
+};
